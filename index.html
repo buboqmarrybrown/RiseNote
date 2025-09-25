@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RiseNote</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* General Styling */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f8f8f8;
+      color: #333;
+    }
+
+    .container {
+      text-align: center;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 600px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #333;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #666;
+      margin: 10px 0;
+    }
+
+    .quote {
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: #4CAF50;
+      margin: 30px 0;
+      min-height: 50px;
+      line-height: 1.5;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .lang-btn {
+      background-color: #007BFF;
+      color: white;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 0 10px;
+    }
+
+    .lang-btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1rem;
+      }
+
+      .quote {
+        font-size: 1.4rem;
+      }
+
+      button {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>RiseNote</h1>
+    <h2>Your Day Matters</h2>
+
+    <!-- Language Buttons -->
+    <div class="btn-container">
+      <button class="lang-btn" id="btnEnglish">ENGLISH</button>
+      <button class="lang-btn" id="btnBahasa">BAHASA</button>
+    </div>
+
+    <!-- Quote Display -->
+    <div id="quote" class="quote">Where to put the sentence</div>
+  </div>
+
+  <script>
+    // Fetching motivational phrases from the provided JSON files
+    let phrases_en = [];
+    let phrases_ms = [];
+
+    // Fetch English and Bahasa phrases from external JSON files
+    fetch('phrases_en.json')
+      .then(response => response.json())
+      .then(data => phrases_en = data);
+
+    fetch('phrases_ms.json')
+      .then(response => response.json())
+      .then(data => phrases_ms = data);
+
+    // Function to get random motivational quote
+    function getRandomQuote(language) {
+      let selectedPhrases = language === 'en' ? phrases_en : phrases_ms;
+      const randomIndex = Math.floor(Math.random() * selectedPhrases.length);
+      return selectedPhrases[randomIndex];
+    }
+
+    // Event Listener for "ENGLISH" button
+    document.getElementById('btnEnglish').addEventListener('click', () => {
+      const randomQuote = getRandomQuote('en');
+      document.getElementById('quote').textContent = randomQuote;
+    });
+
+    // Event Listener for "BAHASA" button
+    document.getElementById('btnBahasa').addEventListener('click', () => {
+      const randomQuote = getRandomQuote('ms');
+      document.getElementById('quote').textContent = randomQuote;
+    });
+  </script>
+
+</body>
+</html>
